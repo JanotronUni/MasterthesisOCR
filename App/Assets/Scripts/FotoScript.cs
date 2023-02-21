@@ -134,7 +134,7 @@ public class FotoScript : MonoBehaviour
 
     private IEnumerator SendeFotoRequest()
     {
-        string url = "http://192.168.0.220:8000/sendeFoto";
+        string url = StartBildschirm.ipaddress+"/sendeFoto";
         using UnityWebRequest webrequest = new UnityWebRequest(url, "POST");
         webrequest.SetRequestHeader("Content-Type", "application/json");
         byte[] buffer = Encoding.UTF8.GetBytes(jsonDaten);

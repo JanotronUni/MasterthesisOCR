@@ -36,7 +36,7 @@ public class FinalerTextScript : MonoBehaviour
     }
     IEnumerator getFinalTextRequest()
     {
-        using (UnityWebRequest request = UnityWebRequest.Get("http://192.168.0.220:8000/getFinalText")) 
+        using (UnityWebRequest request = UnityWebRequest.Get(StartBildschirm.ipaddress+"/getFinalText")) 
         {
             yield return request.SendWebRequest();
             Debug.Log(request.result);
@@ -64,7 +64,7 @@ public class FinalerTextScript : MonoBehaviour
     }
     IEnumerator setFinalTextRequest()
     {
-        using UnityWebRequest webrequest = new UnityWebRequest("http://192.168.0.220:8000/setFinalText", "POST");
+        using UnityWebRequest webrequest = new UnityWebRequest(StartBildschirm.ipaddress+"/setFinalText", "POST");
         webrequest.SetRequestHeader("Content-Type", "application/json");
         byte[] buffer = Encoding.UTF8.GetBytes(jsonDaten);
         webrequest.uploadHandler = new UploadHandlerRaw(buffer);

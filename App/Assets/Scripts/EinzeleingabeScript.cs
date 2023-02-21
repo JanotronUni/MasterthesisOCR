@@ -31,7 +31,7 @@ public class EinzeleingabeScript : MonoBehaviour
     }
     IEnumerator CheckIfServerBusy()
     {
-        using (UnityWebRequest request = UnityWebRequest.Get("http://192.168.0.220:8000/checkServerStatus"))
+        using (UnityWebRequest request = UnityWebRequest.Get(StartBildschirm.ipaddress+"/checkServerStatus"))
         {
             yield return request.SendWebRequest();         
             if (request.downloadHandler.text == "Server beschaeftigt")
@@ -85,7 +85,7 @@ public class EinzeleingabeScript : MonoBehaviour
             {"text", tempText },
         };
         jsonDaten = JsonConvert.SerializeObject(JZeug);
-        StartCoroutine(TextSendenRequest("http://192.168.0.220:8000/sendeText"));
+        StartCoroutine(TextSendenRequest(StartBildschirm.ipaddress+"/sendeText"));
         Invoke("FotoAnzeigen", 1);
     }
    
@@ -126,7 +126,7 @@ public class EinzeleingabeScript : MonoBehaviour
     public void FotoAnzeigen()
     {
         
-        StartCoroutine(FotoAnzeigenRequest("http://192.168.0.220:8000/fotoAnzeigen"));
+        StartCoroutine(FotoAnzeigenRequest(StartBildschirm.ipaddress+"/fotoAnzeigen"));
     }
     IEnumerator FotoAnzeigenRequest(string uri)
     {

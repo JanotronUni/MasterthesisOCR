@@ -81,7 +81,7 @@ public class LeseScript : MonoBehaviour
         };
         jsonDaten = JsonConvert.SerializeObject(TextJson);
     
-        StartCoroutine(AktualisierenRequest("http://192.168.0.220:8000/text"));
+        StartCoroutine(AktualisierenRequest(StartBildschirm.ipaddress+"/text"));
         
     }
    
