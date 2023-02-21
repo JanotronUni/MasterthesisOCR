@@ -6,7 +6,7 @@ using UnityEngine.Android;
 
 public class Notification : MonoBehaviour
 {
-   
+    //Dieses Script kann genutzt werden, um Benachrichtigungen erscheinen zu lassen. Die Icons müssen noch festgelegt werden.
     // Start is called before the first frame update
     void Start()
     {

@@ -3,7 +3,7 @@
     "m_SelectedPackage": {
         "deviceId": "ey4d45ga4twcrkba",
         "name": "com.DefaultCompany.OcrApp",
-        "processId": 8166,
+        "processId": 16477,
         "exited": false
     },
     "m_SelectedPriority": 0,
@@ -126,6 +126,12 @@
             "deviceId": "ey4d45ga4twcrkba",
             "name": "com.DefaultCompany.OcrApp",
             "processId": 8166,
+            "exited": false
+        },
+        {
+            "deviceId": "ey4d45ga4twcrkba",
+            "name": "com.DefaultCompany.OcrApp",
+            "processId": 16477,
             "exited": false
         }
     ],

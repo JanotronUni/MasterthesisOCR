@@ -24,5 +24,6 @@ public class StartBildschirm : MonoBehaviour
         idAnzeige.text= input.text;
         personid = input.text;
         SceneManager.LoadScene(1);
+        //Die personid wird statisch festgelegt, damit die anderen Scripte drauf zugreifen können.
     }
 }

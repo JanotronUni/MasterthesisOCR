@@ -18,6 +18,9 @@ public class EinzeleingabeScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        //Da die Schrifterkennung länger dauern kann, wird erst der Server geprüft.
+        //Erst wenn der Server die OCR abgeschlossen hat, werden Fotos von 
+        //Wörtern mit niedriger Probability angezeigt.
         input.text = "Wait for Server";
         InvokeRepeating("CheckServer", 1, 5);
         
@@ -73,7 +76,7 @@ public class EinzeleingabeScript : MonoBehaviour
     }
     
     
-   
+   //Sendet an den Server den Text, den der Nutzer für das übergebene Bild eingibt.
     public void TextSenden()
     {
         var tempText = input.text;
@@ -119,6 +122,7 @@ public class EinzeleingabeScript : MonoBehaviour
                 break;
         }
     }
+    //Fragt immer ein Foto vom Server an (mit entsprechend niedriger Probability)
     public void FotoAnzeigen()
     {
         
@@ -137,6 +141,10 @@ public class EinzeleingabeScript : MonoBehaviour
             if(request.downloadHandler.text == "Alle Bilder verarbeitet")
             {
                 SzenewechselninFinaleTexteingabe();
+            }
+            if (request.downloadHandler.text == "working")
+            {
+                Debug.Log("Server beschaeftigt");
             }
             else
             {

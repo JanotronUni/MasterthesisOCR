@@ -6,9 +6,10 @@ using UnityEngine;
 using Newtonsoft.Json;
 using System;
 using UnityEngine.Networking;
-
+//Hier gibt es nuetzliche Methoden, die in diesem Projekt nicht genutzt wurden.
 public class Datenbank
 {
+  
     public string ID { get; set; }
     public string Name { get; set; }
     public string Foto { get; set; }
@@ -38,6 +39,7 @@ public class Nuetzliches : MonoBehaviour
     }
     public string GetIP()
     {
+        //gibt die die Ip Adresse des Nutzers zurück.
         IPHostEntry host;
         string localIP = "0.0.0.0";
         host = Dns.GetHostEntry(Dns.GetHostName());
@@ -51,6 +53,7 @@ public class Nuetzliches : MonoBehaviour
         }
         return localIP;
     }
+    //Die Coroutine verbindet die Klasse Datenbank (die vom Server ebenfalls genutzt wird) mit der App. Deserialize kann somit genutzt werden.
     IEnumerator GetRequest2(string uri)
     {
         using (UnityWebRequest request = UnityWebRequest.Get(uri))

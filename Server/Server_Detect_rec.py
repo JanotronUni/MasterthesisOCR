@@ -11,6 +11,8 @@ texte = []
 ausgabe ="";
  
 workingOnOCR = False
+#In dieser und in der nächsten Methode wird festgelegt, ob und welchen Partner
+#eine personid hat.
 def hatPartner(name):
     if name == "personid1":
         return True
@@ -38,9 +40,10 @@ def getPartnerName(name):
 counter2 =0
 bilder =[]
 niedrigeProb = []
+#easyocr Reader wird geladen. Sprache = englisch
 reader = easyocr.Reader(['en'])
-def recognize_text(img):
-    '''loads an image and recognizes text.'''   
+
+def recognize_text(img):  
     return reader.readtext(img)
    
 def overlay_ocr_text(img):
@@ -53,6 +56,7 @@ def overlay_ocr_text(img):
             print(f'Detected text: {text} (Probability: {prob:.2f})')
             
             texte.append(text)
+            
             if prob< 0.85:
                 niedrigeProb.append(counter) 
                 (top_left, top_right, bottom_right, bottom_left) = bbox
@@ -67,13 +71,15 @@ def overlay_ocr_text(img):
                 pls = base64.b64encode(img_endoce)
                 test = pls.decode('utf-8')
                 bilder.append(test)
-                
+                #in die Liste Bilder werden die Fotos hinzugefügt von schlecht erkannten Wörtern
+                #im nächsten Schritt wird die Stelle gespeichert, an der dies auftritt
                 for niedrig in niedrigeProb:
                     print(niedrig)
             counter = counter +1
             print(texte)
 
 app = Flask(__name__)
+#Hier kommt das gesendete Foto an (FotoSzene) und wird verarbeitet.
 @app.route("/sendeFoto", methods=["POST"])
 def verarbeiteFoto():
     return startOCR()
@@ -89,10 +95,9 @@ def startOCR():
     print(name)
     global foto
     foto = json.get('foto')
-    #setzeFoto(foto)
-   # text = json.get('text')
     if not name or not foto:
         return "Name oder Foto fehlen"
+    #aus dem überwegebenen Base64 String wird Schritt für Schritt das Foto wiederhergestellt
     test = base64.b64decode(foto)
     pngnp = np.frombuffer(test, np.uint8)
     img = cv2.imdecode(pngnp, cv2.IMREAD_COLOR)
@@ -107,13 +112,14 @@ def startOCR():
     workingOnOCR =False
     return "OCR wurde gestartet und ist ferig"
 
+#gibt Status des Servers zurück (EinzeleingabeSzene)
 @app.route("/checkServerStatus")
 def getServerStatus():
     if workingOnOCR:
         return "Server beschaeftigt"
     else:
         return "Server frei"
-
+#gibt den Text für die personid und den Partner zurück (LeseSzene)
 @app.route("/text", methods=["POST"] )
 def gettext():
     json = request.get_json()
@@ -130,7 +136,7 @@ def gettext():
         ausgabe = ausgabe +"".join(str(result)[2:-3]) +" "
     return jsonify(ausgabe), 200
 
-
+#Gibt das erste Foto aus der Bilderliste zurück (EinzeleingabeSzene)
 @app.route("/fotoAnzeigen")
 def temp(): 
     if workingOnOCR:
@@ -141,7 +147,7 @@ def temp():
         tempBild = bilder[0]
         del bilder[0]
         return (tempBild)
-
+#gibt den Text aus, der aus OCR und den Einzeleingaben entstanden ist.
 @app.route("/getFinalText")
 def getFinalText():
     ausgabe ="";
@@ -149,6 +155,7 @@ def getFinalText():
             ausgabe = ausgabe +"". join(t)
             ausgabe = ausgabe + " "
     return ausgabe
+#Speichert den Finalen Text, der übergeben wird. Dazu die personid und das Foto als Base64 String(FinalerTextSzene).
 @app.route("/setFinalText", methods=["POST"])
 def setFinalText():
     json = request.get_json()
@@ -158,7 +165,7 @@ def setFinalText():
     datenbank = Datenbank(None, name,foto,text)
     datenbank.save()
     return "Geklappt"
-
+#Speichert für das übergebene Foto (/fotoAnzeigen) an der entsprechenden Stelle den Text, den der User eingegeben hat.
 @app.route("/sendeText", methods=["POST"])
 def textAendern():
     json = request.get_json()

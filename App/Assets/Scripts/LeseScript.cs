@@ -28,6 +28,8 @@ public class LeseScript : MonoBehaviour
         WebCamDevice device = default;
         StartCamera(device);
         InvokeRepeating("Aktualisiere", 0f, 10f);
+        //schickt alle 10 Sekunden eine Anfrage an den Server
+        // Falls der Partner in der Zeit Text hinzugefügt hat, dann wird dieser ebenfalls angezeigt
     }
     private void StopCamera()
     {
@@ -43,6 +45,7 @@ public class LeseScript : MonoBehaviour
         StopCamera();
         webCamTexture = new WebCamTexture(device.name, Screen.width, Screen.height, 60);
         webCamTexture.Play();
+        //Android Kamera muss gedreht werden.
         int orientation = -webCamTexture.videoRotationAngle;
         hintergrund.rectTransform.localEulerAngles = new Vector3(0, 0, orientation);
         hintergrund.texture= webCamTexture;
@@ -66,6 +69,10 @@ public class LeseScript : MonoBehaviour
     {
         text.fontSize = text.fontSize - 5;
     }
+    //sendet die statische personid an den Server.
+    //Zurück kommt der in der Datenbank hinterlegte Text für diese personid,
+    //inkl. der Text des Partners, falls es einen gibt.
+    
     public void Aktualisiere()
     {
         Dictionary<string, string> TextJson = new Dictionary<string, string>()

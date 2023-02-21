@@ -11,7 +11,8 @@ using UnityEngine.UI;
 
 public class FinalerTextScript : MonoBehaviour
 {
-    //public UnityEngine.UI.InputField input;
+    //In diesem Script wird der gesamte Text angezeigt und kann verändert werden,
+    //bevor dieser zum Server geschickt wird.
     public InputField input;
     string jsonDaten;
     // Start is called before the first frame update

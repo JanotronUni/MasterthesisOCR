@@ -49,6 +49,7 @@ public class FotoScript : MonoBehaviour
     {
         if (!fotoGemacht)
         {
+            //wenn ein Foto gemacht wurde, dann soll nicht mehr aktualisiert werden
             int orientierung = -webCamTexture.videoRotationAngle;
             bild.rectTransform.localEulerAngles = new Vector3(0, 0, orientierung);
             hilfsTextur = TextureToT2D(webCamTexture);
@@ -95,7 +96,7 @@ public class FotoScript : MonoBehaviour
     }
     public Texture2D TextureToT2D(Texture texture)
     {
-
+        //wandelt die übergebene Textur in eine Texture2D um
         Texture2D tempT2D = new Texture2D(texture.width, texture.height, TextureFormat.RGBA32,false);      
         Graphics.CopyTexture(texture, tempT2D);
         tempT2D.Apply(true);
@@ -114,7 +115,8 @@ public class FotoScript : MonoBehaviour
         
         int orientierung = -webCamTexture.videoRotationAngle;
         bild.rectTransform.localEulerAngles = new Vector3(0, 0, orientierung);
-        
+        //Foto wird erst in PNG umgewandelt und dann in einen Base64 String, damit dieser
+        // an den Server geschickt werden kann.
         byte[] bytes = temp.EncodeToPNG();
         string fotoString = Convert.ToBase64String(bytes);
 
