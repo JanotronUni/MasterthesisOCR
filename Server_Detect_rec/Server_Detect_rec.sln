@@ -1,0 +1,23 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.4.33213.308
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "Server_Detect_rec", "Server_Detect_rec\Server_Detect_rec.pyproj", "{E800156C-0EEC-4EA1-9A77-90DEF5E36965}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{E800156C-0EEC-4EA1-9A77-90DEF5E36965}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E800156C-0EEC-4EA1-9A77-90DEF5E36965}.Release|Any CPU.ActiveCfg = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {B362A7FE-5E1A-4D7F-8D3D-6356EE79BDED}
+	EndGlobalSection
+EndGlobal
