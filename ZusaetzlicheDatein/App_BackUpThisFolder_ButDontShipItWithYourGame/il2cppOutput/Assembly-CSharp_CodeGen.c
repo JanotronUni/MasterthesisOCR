@@ -268,9 +268,11 @@ extern void StartBildschirm_Start_m3C453EA9BCA4230B853CB30FDAD31192D8EA8C61 (voi
 extern void StartBildschirm_Update_m9BB7F3B13E6CD72A132F44D07B49F0E1E6B84F78 (void);
 // 0x00000080 System.Void StartBildschirm::SetzeId()
 extern void StartBildschirm_SetzeId_m791563C4220EA3CE3DE836FC85E88D5C67220FB3 (void);
-// 0x00000081 System.Void StartBildschirm::.ctor()
+// 0x00000081 System.Void StartBildschirm::SetzeIp()
+extern void StartBildschirm_SetzeIp_m757C1C43367AFE3478EE4BDD4338E14C0EC4D098 (void);
+// 0x00000082 System.Void StartBildschirm::.ctor()
 extern void StartBildschirm__ctor_mA9C5925C2D1A9C65A98DC08DEDA9BD0E1DB5515B (void);
-static Il2CppMethodPointer s_methodPointers[129] = 
+static Il2CppMethodPointer s_methodPointers[130] = 
 {
 	EinzeleingabeScript_Start_m535376CDB8C7B5FB5DC5C139AD65C1FBEB425948,
 	EinzeleingabeScript_CheckServer_m66792177FE43DEF040CBB2BF3F83DB15996AF6D2,
@@ -400,9 +402,10 @@ static Il2CppMethodPointer s_methodPointers[129] =
 	StartBildschirm_Start_m3C453EA9BCA4230B853CB30FDAD31192D8EA8C61,
 	StartBildschirm_Update_m9BB7F3B13E6CD72A132F44D07B49F0E1E6B84F78,
 	StartBildschirm_SetzeId_m791563C4220EA3CE3DE836FC85E88D5C67220FB3,
+	StartBildschirm_SetzeIp_m757C1C43367AFE3478EE4BDD4338E14C0EC4D098,
 	StartBildschirm__ctor_mA9C5925C2D1A9C65A98DC08DEDA9BD0E1DB5515B,
 };
-static const int32_t s_InvokerIndices[129] = 
+static const int32_t s_InvokerIndices[130] = 
 {
 	5443,
 	5443,
@@ -533,12 +536,13 @@ static const int32_t s_InvokerIndices[129] =
 	5443,
 	5443,
 	5443,
+	5443,
 };
 IL2CPP_EXTERN_C const Il2CppCodeGenModule g_AssemblyU2DCSharp_CodeGenModule;
 const Il2CppCodeGenModule g_AssemblyU2DCSharp_CodeGenModule = 
 {
 	"Assembly-CSharp.dll",
-	129,
+	130,
 	s_methodPointers,
 	0,
 	NULL,

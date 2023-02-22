@@ -27215,8 +27215,10 @@ struct StartBildschirm_t38E87F900B52F67BB0B6AAEB49F1951C5682D3EB  : public MonoB
 {
 	// TMPro.TextMeshProUGUI StartBildschirm::idAnzeige
 	TextMeshProUGUI_t101091AF4B578BB534C92E9D1EEAF0611636D957* ___idAnzeige_4;
-	// UnityEngine.UI.InputField StartBildschirm::input
-	InputField_tABEA115F23FBD374EBE80D4FAC1D15BD6E37A140* ___input_5;
+	// UnityEngine.UI.InputField StartBildschirm::inputID
+	InputField_tABEA115F23FBD374EBE80D4FAC1D15BD6E37A140* ___inputID_5;
+	// UnityEngine.UI.InputField StartBildschirm::inputIp
+	InputField_tABEA115F23FBD374EBE80D4FAC1D15BD6E37A140* ___inputIp_6;
 };
 
 // TMPro.TMP_ScrollbarEventHandler
@@ -41513,7 +41515,9 @@ struct SamsungAndroidProviderLoader_t750DAFC3B980CC2B2FB3F5BC080B536ECAF5D293_St
 struct StartBildschirm_t38E87F900B52F67BB0B6AAEB49F1951C5682D3EB_StaticFields
 {
 	// System.String StartBildschirm::personid
-	String_t* ___personid_6;
+	String_t* ___personid_7;
+	// System.String StartBildschirm::ipaddress
+	String_t* ___ipaddress_8;
 };
 
 // StartBildschirm

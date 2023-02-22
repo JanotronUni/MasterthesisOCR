@@ -15941,8 +15941,10 @@ struct StartBildschirm_t38E87F900B52F67BB0B6AAEB49F1951C5682D3EB  : public MonoB
 {
 	// TMPro.TextMeshProUGUI StartBildschirm::idAnzeige
 	TextMeshProUGUI_t101091AF4B578BB534C92E9D1EEAF0611636D957* ___idAnzeige_4;
-	// UnityEngine.UI.InputField StartBildschirm::input
-	InputField_tABEA115F23FBD374EBE80D4FAC1D15BD6E37A140* ___input_5;
+	// UnityEngine.UI.InputField StartBildschirm::inputID
+	InputField_tABEA115F23FBD374EBE80D4FAC1D15BD6E37A140* ___inputID_5;
+	// UnityEngine.UI.InputField StartBildschirm::inputIp
+	InputField_tABEA115F23FBD374EBE80D4FAC1D15BD6E37A140* ___inputIp_6;
 };
 
 // Unity.VisualScripting.TriggerEvent2DUnit
@@ -22790,7 +22792,9 @@ struct SamsungAndroidProviderLoader_t750DAFC3B980CC2B2FB3F5BC080B536ECAF5D293_St
 struct StartBildschirm_t38E87F900B52F67BB0B6AAEB49F1951C5682D3EB_StaticFields
 {
 	// System.String StartBildschirm::personid
-	String_t* ___personid_6;
+	String_t* ___personid_7;
+	// System.String StartBildschirm::ipaddress
+	String_t* ___ipaddress_8;
 };
 
 // StartBildschirm
@@ -26371,9 +26375,9 @@ IL2CPP_EXTERN_C const int32_t g_FieldOffsetTable7820[7] =
 IL2CPP_EXTERN_C const int32_t g_FieldOffsetTable7821[2] = 
 {
 	static_cast<int32_t>(offsetof(Nuetzliches_t804489C3D40D86E986B2D99CF69B5C53B6EBC2F0, ___devices_4)),static_cast<int32_t>(offsetof(Nuetzliches_t804489C3D40D86E986B2D99CF69B5C53B6EBC2F0, ___device_5)),};
-IL2CPP_EXTERN_C const int32_t g_FieldOffsetTable7822[3] = 
+IL2CPP_EXTERN_C const int32_t g_FieldOffsetTable7822[5] = 
 {
-	static_cast<int32_t>(offsetof(StartBildschirm_t38E87F900B52F67BB0B6AAEB49F1951C5682D3EB, ___idAnzeige_4)),static_cast<int32_t>(offsetof(StartBildschirm_t38E87F900B52F67BB0B6AAEB49F1951C5682D3EB, ___input_5)),static_cast<int32_t>(offsetof(StartBildschirm_t38E87F900B52F67BB0B6AAEB49F1951C5682D3EB_StaticFields, ___personid_6)),};
+	static_cast<int32_t>(offsetof(StartBildschirm_t38E87F900B52F67BB0B6AAEB49F1951C5682D3EB, ___idAnzeige_4)),static_cast<int32_t>(offsetof(StartBildschirm_t38E87F900B52F67BB0B6AAEB49F1951C5682D3EB, ___inputID_5)),static_cast<int32_t>(offsetof(StartBildschirm_t38E87F900B52F67BB0B6AAEB49F1951C5682D3EB, ___inputIp_6)),static_cast<int32_t>(offsetof(StartBildschirm_t38E87F900B52F67BB0B6AAEB49F1951C5682D3EB_StaticFields, ___personid_7)),static_cast<int32_t>(offsetof(StartBildschirm_t38E87F900B52F67BB0B6AAEB49F1951C5682D3EB_StaticFields, ___ipaddress_8)),};
 IL2CPP_EXTERN_C const int32_t g_FieldOffsetTable7824[1] = 
 {
 	static_cast<int32_t>(offsetof(RectTransformUtility_t65C00A84A72F17D78B81F2E7D88C2AA98AB61244_StaticFields, ___s_Corners_0)),};
