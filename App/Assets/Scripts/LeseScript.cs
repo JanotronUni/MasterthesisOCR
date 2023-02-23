@@ -27,6 +27,7 @@ public class LeseScript : MonoBehaviour
         devices = WebCamTexture.devices;
         WebCamDevice device = default;
         StartCamera(device);
+        Debug.Log(StartBildschirm.ipaddress);
         InvokeRepeating("Aktualisiere", 0f, 10f);
         //schickt alle 10 Sekunden eine Anfrage an den Server
         // Falls der Partner in der Zeit Text hinzugefügt hat, dann wird dieser ebenfalls angezeigt
@@ -80,13 +81,14 @@ public class LeseScript : MonoBehaviour
             {"name", StartBildschirm.personid },
         };
         jsonDaten = JsonConvert.SerializeObject(TextJson);
-    
+       
         StartCoroutine(AktualisierenRequest(StartBildschirm.ipaddress+"/text"));
         
     }
    
     private IEnumerator AktualisierenRequest(string url)
     {
+       
         using UnityWebRequest webrequest = new UnityWebRequest(url, "POST");
         webrequest.SetRequestHeader("Content-Type", "application/json");
         byte[] buffer = Encoding.UTF8.GetBytes(jsonDaten);

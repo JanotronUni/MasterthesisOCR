@@ -30,6 +30,8 @@ public class StartBildschirm : MonoBehaviour
     }
     public void SetzeIp()
     {
-        ipaddress = inputIp.text;
+        
+        ipaddress = "http://"+inputIp.text;
+        
     }
 }

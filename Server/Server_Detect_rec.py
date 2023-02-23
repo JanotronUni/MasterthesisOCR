@@ -180,4 +180,4 @@ def textAendern():
 
 if __name__ == '__main__':
     Datenbank.create_table()
-    app.run(host='192.168.0.227',port = 8000,debug=True)
+    app.run(host='192.168.0.220',port = 8000,debug=True)
