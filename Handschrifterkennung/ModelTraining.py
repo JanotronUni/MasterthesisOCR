@@ -572,14 +572,14 @@ def build_model():
                       EarlyStopping(min_delta =0.001, patience=30, verbose=1),
                       ]
     history = model.fit(train_ds, 
-                        epochs =200,
+                        epochs =2,
                         validation_data=validation_ds,
                         verbose = 1,
                         callbacks = callbacks_list,
                         shuffle=True)  
     
     return model
-#metrics=[keras.metrics.SparseCategoricalAccuracy()]
+
 model = build_model()
 """
 model = build_model()
@@ -598,7 +598,7 @@ history = model.fit(train_ds,
 """
 
 model.summary()
-model.load_weights('C_LSTM_best.hdf5')
+#model.load_weights('C_LSTM_best.hdf5')
 # Get the prediction model by extracting layers till the output layer
 
 prediction_model = keras.models.Model(
