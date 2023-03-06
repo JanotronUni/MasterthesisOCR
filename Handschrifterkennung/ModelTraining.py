@@ -64,6 +64,16 @@ from itertools import groupby
 ## Dataset splitting
 """
 wandb.init(entity="antiwatch2015", project="masterthesis", name="opt_adam5")
+
+words_list = []
+
+np.random.seed(42)
+tf.random.set_seed(42)
+
+"""
+## Dataset splitting
+"""
+
 base_path = "C:/Users/Jan/Downloads/IAM_Words/"
 words_list = []
 
@@ -104,6 +114,8 @@ print(f"Total test samples: {len(test_samples)}")
 We start building our data input pipeline by first preparing the image paths.
 """
 
+
+
 base_image_path = os.path.join("C:/Users/Jan/Downloads/IAM_Words")
 
 
@@ -132,11 +144,9 @@ def get_image_paths_and_labels(samples):
 train_img_paths, train_labels = get_image_paths_and_labels(train_samples)
 validation_img_paths, validation_labels = get_image_paths_and_labels(validation_samples)
 test_img_paths, test_labels = get_image_paths_and_labels(test_samples)
-
 """
 Then we prepare the ground-truth labels.
 """
-
 # Find maximum length and the size of the vocabulary in the training data.
 train_labels_cleaned = []
 characters = set()
@@ -151,12 +161,12 @@ for label in train_labels:
     train_labels_cleaned.append(label)
 
 characters = sorted(list(characters))
-print(characters)
+
 print("Maximum length: ", max_len)
 print("Vocab size: ", len(characters))
 
 # Check some label samples.
-#train_labels_cleaned[:10]
+train_labels_cleaned[:10]
 """
 Now we clean the validation and the test labels as well.
 """
@@ -189,7 +199,7 @@ layer for this purpose.
 AUTOTUNE = tf.data.AUTOTUNE
 
 # Mapping characters to integers.
-char_to_num = StringLookup(vocabulary=list(characters),num_oov_indices=0, mask_token=None)
+char_to_num = StringLookup(vocabulary=list(characters), mask_token=None)
 
 # Mapping integers back to original characters.
 num_to_char = StringLookup(
@@ -209,6 +219,7 @@ the following criteria are met:
 * Aspect ratio is preserved.
 * Content of the images is not affected.
 """
+
 
 
 def distortion_free_resize(image, img_size):
@@ -260,7 +271,7 @@ Notice how this resizing would have introduced unnecessary stretching.
 ### Putting the utilities together
 """
 
-batch_size = 128
+batch_size = 64
 padding_token = 99
 image_width = 128
 image_height = 32
@@ -275,8 +286,10 @@ def preprocess_image(image_path, img_size=(image_width, image_height)):
 
 
 def vectorize_label(label):
+    print(label)
     label = char_to_num(tf.strings.unicode_split(label, input_encoding="UTF-8"))
     length = tf.shape(label)[0]
+    
     pad_amount = max_len - length
     label = tf.pad(label, paddings=[[0, pad_amount]], constant_values=padding_token)
     return label
@@ -306,12 +319,10 @@ test_ds = prepare_dataset(test_img_paths, test_labels_cleaned)
 """
 ## Visualize a few samples
 """
-
 for data in train_ds.take(1):
     images, labels = data["image"], data["label"]
 
-    train_data_fig, ax = plt.subplots(4, 4, figsize=(15, 8))
-    train_data_fig.suptitle('Training data', weight='bold', size=18)
+    _, ax = plt.subplots(4, 4, figsize=(15, 8))
 
     for i in range(16):
         img = images[i]
@@ -330,6 +341,7 @@ for data in train_ds.take(1):
         ax[i // 4, i % 4].imshow(img, cmap="gray")
         ax[i // 4, i % 4].set_title(label)
         ax[i // 4, i % 4].axis("off")
+       
 
 
 plt.show()
@@ -338,7 +350,7 @@ plt.show()
 You will notice that the content of original image is kept as faithful as possible and has
 been padded accordingly.
 """
-
+print("ssss")
 """
 ## Model
 
@@ -557,7 +569,7 @@ def build_model():
                                     mode="min", 
                                     log_weights=True),
                       PlotPredictions(frequency=1),
-                      EarlyStopping(min_delta =0.0001, patience=30, verbose=1),
+                      EarlyStopping(min_delta =0.001, patience=30, verbose=1),
                       ]
     history = model.fit(train_ds, 
                         epochs =200,
@@ -657,7 +669,7 @@ for batch in validation_ds:
 """
 Now, we create a callback to monitor the edit distances.
 """
-
+model.save("C:/Users/Jan/Desktop/uku/")
 
 
 
