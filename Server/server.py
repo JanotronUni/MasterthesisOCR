@@ -6,7 +6,7 @@ import easyocr
 import json
 from flask import Flask, jsonify, request
 from datenbank import Datenbank
-Datenbank.create_table
+Datenbank.erstelleDB
 texte = []
 ausgabe ="";
  
@@ -180,4 +180,4 @@ def textAendern():
 
 if __name__ == '__main__':
     Datenbank.erstelleDB()
-    app.run(host='192.168.0.220',port = 8000,debug=True)
+    app.run(host='192.168.1.44',port = 8000,debug=True)

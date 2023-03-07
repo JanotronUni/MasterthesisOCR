@@ -2,7 +2,7 @@ import requests
 
 import sqlite3
 
-db_path = "gateway.db"
+db_path = "DB.db"
 
 class Datenbank():
 
