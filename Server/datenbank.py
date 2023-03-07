@@ -13,7 +13,7 @@ class Datenbank():
             self.text = text
 
     @classmethod
-    def create_table(cls):
+    def erstelleDB(cls):
         db = sqlite3.connect(db_path)
         c = db.cursor()
         c.execute(
@@ -26,7 +26,7 @@ class Datenbank():
         db.commit()
         c.close()
 
-    def save(self):
+    def speichern(self):
         db = sqlite3.connect(db_path)
         c = db.cursor()
         if self.id is None:                    
@@ -63,23 +63,9 @@ class Datenbank():
        c.close()
        return result
 
-    @classmethod
-    def all(cls):
-        db = sqlite3.connect(db_path)
-        c = db.cursor()
-        result = c.execute(f"SELECT * FROM datenbank").fetchone()
-        c.close()
-        if result:
-            return Datenbank(
-                result[0],
-                result[1],
-                result[2],
-                result[3]
-                )
-        else:
-            return None
+
         
-    def to_dict(self):
+    def erstelleDbObjekt(self):
         datenbank={}
         datenbank['name'] = self.name
         datenbank['id'] = self.id

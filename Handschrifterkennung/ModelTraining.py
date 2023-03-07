@@ -22,70 +22,43 @@ good starting point for building OCR systems.
 ## Data collection
 """
 
-"""shell
-wget -q https://git.io/J0fjL -O IAM_Words.zip
-unzip -qq IAM_Words.zip
-
-mkdir data
-mkdir data/words
-tar -xf IAM_Words/words.tgz -C data/words
-mv IAM_Words/words.txt data
-"""
-
-"""
-Preview how the dataset is organized. Lines prepended by "#" are just metadata information.
-"""
-
-"""shell
-head -20 data/words.txt
-"""
-
 """
 ## Imports
 """
-
 from distutils.command.build import build
 from tensorflow.keras.layers.experimental.preprocessing import StringLookup
 from tensorflow import keras
-
 import matplotlib.pyplot as plt
 import tensorflow as tf
 import numpy as np
 import os
 import cv2 as cv2
-np.random.seed(42)
-tf.random.set_seed(42)
 from keras.utils.np_utils import to_categorical
 import wandb
 from wandb.keras import WandbCallback
 from tensorflow.keras.callbacks import ModelCheckpoint, EarlyStopping
 from itertools import groupby
-"""
-## Dataset splitting
-"""
-wandb.init(entity="antiwatch2015", project="masterthesis", name="opt_adam5")
 
+##Initialisiert Wandb. antiwatch2015 ist der vom Autor verwendete Accountname
+#fuer die Nutzung muss ein eigener Wandb Account erstellt werden und sich in der Eingabeaufforderung eingeloggt werden.
+wandb.init(entity="antiwatch2015", project="masterthesis", name="opt_adam")
 words_list = []
-
 np.random.seed(42)
 tf.random.set_seed(42)
 
 """
 ## Dataset splitting
 """
-
-base_path = "C:/Users/Jan/Downloads/IAM_Words/"
 words_list = []
-
-words = open(f"C:/Users/Jan/Downloads/IAM_Words/words.txt", "r").readlines()
+#In open muss der Dateipfad IAM_Words/words.txt eingefuegt werden.
+words = open(f"C:/IAM_Words/words.txt", "r").readlines()
 for line in words:
     if line[0] == "#":
         continue
-    if line.split(" ")[1] != "err":  # We don't need to deal with errored entries.
+    if line.split(" ")[1] != "err":  
         words_list.append(line)
 
 len(words_list)
-
 np.random.shuffle(words_list)
 
 """
@@ -113,10 +86,8 @@ print(f"Total test samples: {len(test_samples)}")
 
 We start building our data input pipeline by first preparing the image paths.
 """
-
-
-
-base_image_path = os.path.join("C:/Users/Jan/Downloads/IAM_Words")
+#Hier muss der richtige Dateipfad eingefuegt werden.
+base_image_path = os.path.join("C:/IAM_Words")
 
 
 def get_image_paths_and_labels(samples):
@@ -345,12 +316,11 @@ for data in train_ds.take(1):
 
 
 plt.show()
-#wandb.log({"train_data": train_data_fig})
+#wandb.log({"train_data": train_data_fig}), wenn zusaetzliche Logdaten erwuenscht sind.
 """
 You will notice that the content of original image is kept as faithful as possible and has
 been padded accordingly.
 """
-print("ssss")
 """
 ## Model
 
@@ -552,11 +522,10 @@ def build_model():
     opt = keras.optimizers.Adam()
     model.compile(optimizer=opt)
     # Compile the model and return.
-    #model.compile(optimizer=opt,metrics=[keras.metrics.Accuracy(), percentage_difference])
-    #model.compile(loss = keras.losses.categorical_crossentropy, 
-   #optimizer = keras.optimizers.Adam(), metrics = ['accuracy'])
+    
     print(model.summary())
-    file_path = "C:/Users/Jan/Desktop/fuerholland2/"
+    #In file_path den Dateipfad angeben, indem das Model gespeichert werden soll.
+    file_path = "C:/"
     
     checkpoint = ModelCheckpoint(filepath=file_path, 
                                 monitor='val_loss', 
@@ -582,42 +551,22 @@ def build_model():
 
 model = build_model()
 """
-model = build_model()
-prediction_model = keras.models.Model(
-    model.get_layer(name="image").input, model.get_layer(name="dense2").output
-)
-edit_distance_callback = EditDistanceCallback(prediction_model)
-#callbacks_list.append(edit_distance_callback)
-history = model.fit(train_ds, 
-                        epochs = 1,
-                        validation_data=validation_ds,
-                        verbose = 1,
-                        callbacks = callbacks_list,
-                        shuffle=True)    
+   
 # Get the model.
 """
 
 model.summary()
-#model.load_weights('C_LSTM_best.hdf5')
 # Get the prediction model by extracting layers till the output layer
 
 prediction_model = keras.models.Model(
     model.get_layer(name="image").input, model.get_layer(name="dense2").output
 )
 
-##test
 
-
-##
 prediction_model.summary()
-print(len(figures_list))
-wandb.log({"prediction_for_each_epoch": [wandb.Image(fig, caption="epoch_"+str(i)) for i, fig in enumerate(figures_list)]})
-wandb.log({"test4": model.evaluate(test_ds,batch_size=64)})
+#wandb.log({"prediction_for_each_epoch": [wandb.Image(fig, caption="epoch_"+str(i)) for i, fig in enumerate(figures_list)]})
+wandb.log({"Testdaten": model.evaluate(test_ds,batch_size=64)})
 edit_distance_callback = EditDistanceCallback(prediction_model)
-#wandb.log({"test5" : str(edit_distance_callback)})
-#print(str(edit_distance_callback))
-#print("drueber")
-#testdata mit rein
 for batch in validation_ds.take(1):
 
     batch_images = batch["image"]
@@ -640,14 +589,9 @@ for batch in validation_ds.take(1):
         ax[i // 4, i % 4].set_title(title)
         ax[i // 4, i % 4].axis("off")
         
-
-wandb.log({"prediction_best_epoch": fig})
-
 erg = model.evaluate(test_ds,batch_size=64)
-print("test")
 print(erg)
-print("lul")
-#wandb.log({"prediction_best_epoch": fig})
+
 """
 ## Evaluation metric
 
@@ -669,85 +613,9 @@ for batch in validation_ds:
 """
 Now, we create a callback to monitor the edit distances.
 """
-model.save("C:/Users/Jan/Desktop/uku/")
+#Dateipfad einfuegen, wo das finale Model gespeichert werden soll.
+model.save("C:/")
 
-
-
-"""
-## Training
-
-Now we are ready to kick off model training.
-"""
-"""
-epochs = 1# To get good results this should be at least 50.
-
-model = build_model()
-prediction_model = keras.models.Model(
-    model.get_layer(name="image").input, model.get_layer(name="dense2").output
-)
-edit_distance_callback = EditDistanceCallback(prediction_model)
-
-# Train the model.
-history = model.fit(
-    train_ds,
-    validation_data=validation_ds,
-    epochs=epochs,
-    callbacks=[edit_distance_callback],
-)
-model.save("C:/Users/Jan/Desktop/evaluate/")
-score = model.evaluate(test_ds, verbose=0)
-print("Test loss:", score[0])
-print("Test accuracy:", score[1])
-print(len(score))
-"""
-## Inference
-"""
-#history.history
-print("MAAAAAAAAAAX")
-print(max_len)
-# A utility function to decode the output of the network.
-def decode_batch_predictions(pred):
-    input_len = np.ones(pred.shape[0]) * pred.shape[1]
-    # Use greedy search. For complex tasks, you can use beam search.
-    results = keras.backend.ctc_decode(pred, input_length=input_len, greedy=True)[0][0][
-        :, :max_len
-    ]
-    # Iterate over the results and get back the text.
-    output_text = []
-    for res in results:
-        res = tf.gather(res, tf.where(tf.math.not_equal(res, -1)))
-        res = tf.strings.reduce_join(num_to_char(res)).numpy().decode("utf-8")
-        output_text.append(res)
-    return output_text
-
-
-#  Let's check results on some test samples.
-for batch in test_ds.take(1):
-    batch_images = batch["image"]
-    print(batch_images)
-    _, ax = plt.subplots(4, 4, figsize=(15, 8))
-
-    preds = prediction_model.predict(batch_images)
-    pred_texts = decode_batch_predictions(preds)
-
-    for i in range(16):
-        img = batch_images[i]
-        img = tf.image.flip_left_right(img)
-        img = tf.transpose(img, perm=[1, 0, 2])
-        img = (img * 255.0).numpy().clip(0, 255).astype(np.uint8)
-        img = img[:, :, 0]
-
-        title = f"Prediction: {pred_texts[i]}"
-        ax[i // 4, i % 4].imshow(img, cmap="gray")
-        ax[i // 4, i % 4].set_title(title)
-        ax[i // 4, i % 4].axis("off")
-
-
-plt.show()
-"""
-"""
-To get better results the model should be trained for at least 50 epochs.
-"""
 
 """
 ## Final remarks

@@ -163,7 +163,7 @@ def setFinalText():
         return "Keine Daten erhalten"
     text = json.get('text')
     datenbank = Datenbank(None, name,foto,text)
-    datenbank.save()
+    datenbank.speichern()
     return "Geklappt"
 #Speichert für das übergebene Foto (/fotoAnzeigen) an der entsprechenden Stelle den Text, den der User eingegeben hat.
 @app.route("/sendeText", methods=["POST"])
@@ -179,5 +179,5 @@ def textAendern():
     return "Alles geklappt"
 
 if __name__ == '__main__':
-    Datenbank.create_table()
+    Datenbank.erstelleDB()
     app.run(host='192.168.0.220',port = 8000,debug=True)
