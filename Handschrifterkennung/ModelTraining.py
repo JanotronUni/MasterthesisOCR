@@ -538,10 +538,10 @@ def build_model():
                                     mode="min", 
                                     log_weights=True),
                       PlotPredictions(frequency=1),
-                      EarlyStopping(min_delta =0.001, patience=30, verbose=1),
+                      EarlyStopping(min_delta =0.001, patience=10, verbose=1),
                       ]
     history = model.fit(train_ds, 
-                        epochs =2,
+                        epochs =2000,
                         validation_data=validation_ds,
                         verbose = 1,
                         callbacks = callbacks_list,

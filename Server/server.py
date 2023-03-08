@@ -6,7 +6,6 @@ import easyocr
 import json
 from flask import Flask, jsonify, request
 from datenbank import Datenbank
-Datenbank.erstelleDB
 texte = []
 ausgabe ="";
  
@@ -103,14 +102,13 @@ def startOCR():
     img = cv2.imdecode(pngnp, cv2.IMREAD_COLOR)
     img = cv2.rotate(img, cv2.ROTATE_90_CLOCKWISE)
     texte.clear()   
-    overlay_ocr_text(img)
-    
+    overlay_ocr_text(img)    
     ausgabe =""
     for t in texte:
         ausgabe = ausgabe +"". join(t)
         ausgabe = ausgabe + " "  
     workingOnOCR =False
-    return "OCR wurde gestartet und ist ferig"
+    return "OCR wurde gestartet und ist fertig"
 
 #gibt Status des Servers zurück (EinzeleingabeSzene)
 @app.route("/checkServerStatus")

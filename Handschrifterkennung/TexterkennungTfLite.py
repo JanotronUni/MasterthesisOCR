@@ -70,7 +70,7 @@ def distortion_free_resize(image, img_size):
     image = tf.transpose(image, perm=[1, 0, 2])
     image = tf.image.flip_left_right(image)
     return image
-interpreter = tf.lite.Interpreter(model_path="C:/Users/Jan/Desktop/tflite/tf.tflite")
+interpreter = tf.lite.Interpreter(model_path="")#Dateipfad zu .tflite Model
 interpreter.allocate_tensors()
 
 # Get input and output tensors.
@@ -79,12 +79,11 @@ output_details = interpreter.get_output_details()
 print(input_details)
 print(output_details)
 # Test the model on random input data.
-img1 = preprocess_image('C:/Users/Jan/Desktop/screen.png')
+img1 = preprocess_image('')#Dateipfad zum Bild
 img1 = np.expand_dims(img1, axis=0)
 input_shape = input_details[0]['shape']
 print(input_shape)
-#input_data = np.expand_dims(input_data, 0)
-#input_data = np.array(np.random.random_sample(input_shape), dtype=np.float32)
+
 interpreter.set_tensor(0, img1)
 print(input_details[0]['index'])
 interpreter.invoke()
@@ -96,9 +95,6 @@ print(output[0][0])
 
 ##test
 input_len = np.ones(output.shape[0]) * output.shape[1]
-print("AAAAAAAAAAAAAAAAAAA")
-
-print("BBBBBBBBBBBBBBBB")
 
 ##test
 pred_texts = decode_batch_predictions(output)
