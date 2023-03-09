@@ -23,7 +23,7 @@ public class Notification : MonoBehaviour
         
     }
    
-    public void ShowNotification2()
+    public void ShowNotification()
     {
         AndroidNotificationChannel channel = new AndroidNotificationChannel()
         {
